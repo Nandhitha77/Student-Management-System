@@ -1,0 +1,204 @@
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #ebf1fb;
+    color: #1d2433;
+}
+
+.container {
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin: 10px 0 20px;                
+}
+
+h2 {
+    margin: 5px 5px 12px;              
+}
+
+.layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.form-container {
+    flex: 0 0 320px;
+    background: #d7dffb;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.table-container {
+    flex: 1;
+    min-width: 0;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#admission-date {
+    display: block;
+}
+
+/* ----- Form ----- */
+.form-container input,
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #dfe4ee;
+    border-radius: 6px;
+}
+
+.skill-list input {
+    display: inline;
+    width: auto;
+    margin: 0 6px 0 0;
+}
+
+.skill-list label {
+    margin-right: 14px;
+}
+
+button {
+    padding: 10px 18px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #2f5bea;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* ----- Search + department filter ----- */
+.tools {
+    display: flex;
+    gap: 12px;
+    align-items: center;                 /* CHANGED: keeps both boxes level */
+    margin: 12px 0 16px;
+}
+
+.tools input,
+.tools select {
+    height: 42px;                        /* CHANGED: same height for both */
+    padding: 0 12px;
+    font-size: 0.95rem;
+    border: 1px solid #dfe4ee;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.tools input {
+    flex: 1;                             /* CHANGED: was flex: 2 and width: 200px */
+    max-width: 320px;                    /* CHANGED: the search bar stops at 320px */
+}
+
+.tools select {
+    flex: 0 0 200px;                     /* CHANGED: dropdown stays a fixed 200px */
+    cursor: pointer;
+}
+
+.tools input:focus,
+.tools select:focus {                    /* ADDED: blue outline when clicked */
+    outline: 2px solid #2f5bea;
+    outline-offset: 1px;
+}
+
+/* ----- Table ----- */
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;                    /* CHANGED: 8 columns now, so 800 is enough */
+}
+
+th,
+td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #dfe4ee;
+    font-size: 0.9rem;
+}
+
+th {
+    background: #f3ecf7;
+    color: #55419e;
+}
+
+tbody tr:hover {
+    background: #e7edf9;
+}
+
+td[colspan] {                            /* ADDED: styles the "No students yet" message */
+    text-align: center;
+    color: #667085;
+    padding: 24px;
+}
+
+td:last-child {                          /* ADDED: Edit and Delete stay side by side */
+    white-space: nowrap;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+}
+
+.delete-btn {
+    background: #d64545;
+}
+
+
+@media (max-width: 900px) {
+    .container {
+        padding: 12px;
+    }
+
+    .layout {
+        gap: 16px;
+    }
+
+    .form-container {
+        flex: 0 0 260px;               
+    }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+    .layout {
+        flex-direction: column;      
+    }
+
+    .form-container {
+        flex: none;
+        width: 100%;
+    }
+
+    .tools {
+        flex-direction: column;        
+        align-items: stretch;
+    }
+
+    .tools input,
+    .tools select {
+        flex: none;
+        max-width: 100%;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+}

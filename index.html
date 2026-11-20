@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Management System</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://img.icons8.com/?size=100&id=wue74HqaylSJ&format=png&color=000000">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Student Management System</h1>
+        <div class="layout">
+            <div class="form-container">
+                <h2>Add new Student</h2>
+                <form id="student-form" onsubmit="sub(event)" onreset="cancelEdit()">
+                    <input type="text" id="name" placeholder="Name" required>
+                    <input type="text" id="register" placeholder="Register Number" required>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="tel" id="number" placeholder="Phone number" required pattern="[0-9]{10}" maxlength="10" minlength="10">
+                    <!-- <h3 sty>Department</h3> -->
+                    <select id="department" required>
+                        <option value="" disabled selected >Select Department</option>
+                          <!-- <option value="">All Departments</option> -->
+                        <option value="CSE">CSE </option>
+                        <option value="IT">IT</option>
+                        <option value="ECE">ECE </option>
+                        <option value="EEE">EEE</option>
+                        <option value="AI & DS">AI & DS</option>
+                        <option value="M.tech">M.tech</option>
+                        <option value="Civil">Civil</option>
+                        <option value="Mechanical">Mechanical</option>
+                    </select>
+                    <div class="skill-list">
+                        <h4 style="padding: 5px;">Technical Skills</h4>
+                        <label><input type="checkbox" name="skill" value="HTML">HTML</label>
+                        <label><input type="checkbox" name="skill" value="CSS">CSS</label>
+                        <label><input type="checkbox" name="skill" value="JS">JS</label>
+                    </div>
+                    <h4 style="padding: 6px;">Admission Date</h4>
+                    <input type="date" id="admission-date" required>
+                    <button type="submit" id="submit-btn">Submit</button>
+                    <button type="reset">Reset</button>
+                </form>
+            </div>
+            <div class="table-container">
+                <h2>Student Records</h2>
+                <div class="tools">
+                    <input type="text" id="search" placeholder="search students by name" oninput="showStudents()">
+                    <select id="filter-department" onchange="showStudents()">
+                        <option value="">All Departments</option>
+                        <option value="CSE">CSE </option>
+                        <option value="IT">IT</option>
+                        <option value="ECE">ECE </option>
+                        <option value="EEE">EEE</option>
+                        <option value="AI & DS">AI & DS</option>
+                        <option value="M.tech">M.tech</option>
+                        <option value="Civil">Civil</option>
+                        <option value="Mechanical">Mechanical</option>
+                    </select>
+                </div> 
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Register.No</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Department</th>
+                                <th>Skills</th>
+                                <th>Admission Date</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="student-list">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
