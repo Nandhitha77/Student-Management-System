@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management - Login</title>
+    <link rel="icon" href="https://img.icons8.com/?size=100&id=wue74HqaylSJ&format=png&color=000000">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            background: white;
+            width: 380px;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        p {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <!-- Email Login Screen -->
+        <div id="email-section">
+
+            <h2>Welcome Back!</h2>
+            <p>Login to Student Management System</p>
+
+            <form id="email-form">
+
+                <label>Email Address</label>
+
+                <input type="email" id="email" placeholder="Enter your email" required>
+
+                <button type="submit">Send OTP</button>
+
+            </form>
+
+        </div>
+
+
+        <!-- OTP Verification Screen -->
+        <div id="otp-section" class="hidden">
+
+            <h2>Verify Your Email</h2>
+            <p>Enter the OTP sent to your email</p>
+
+            <form id="otp-form">
+
+                <label>Enter OTP</label>
+
+                <input type="text" id="otp" placeholder="Enter 6-digit OTP" maxlength="6" inputmode="numeric"
+                    pattern="[0-9]{6}" required>
+
+                <button type="submit">Verify OTP</button>
+
+            </form>
+
+        </div>
+
+        <div id="message"></div>
+
+    </div>
+
+
+    <script>
+
+        const emailForm = document.getElementById("email-form");
+
+        const otpForm = document.getElementById("otp-form");
+
+        const emailSection = document.getElementById("email-section");
+
+        const otpSection = document.getElementById("otp-section");
+
+        const message = document.getElementById("message");
+
+
+        // Send OTP request
+        emailForm.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:3000/api/auth/send-otp",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({ email: email })
+                    }
+                );
+
+                // const data = await response.json();
+                const result = await response.text();
+
+                console.log("Server response:", result);
+
+                const data = JSON.parse(result);
+
+                if (!response.ok) {
+                    throw new Error(data.message || "Unable to send OTP");
+                }
+
+                emailSection.classList.add("hidden");
+                otpSection.classList.remove("hidden");
+
+                message.textContent = "OTP sent successfully!";
+
+            } catch (error) {
+
+                message.textContent = error.message;
+
+            }
+
+        });
+
+
+        // Verify OTP request
+        otpForm.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+
+            const otp = document.getElementById("otp").value;
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:3000/api/auth/verify-otp",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            email: email,
+                            otp: otp
+                        })
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || "OTP verification failed");
+                }
+
+                window.location.href = "index.html";
+                
+                // We'll redirect to the dashboard after
+                // implementing backend authentication.
+
+            } catch (error) {
+                
+                message.textContent = error.message;
+                
+            }
+            
+        });
+        
+        </script>
+
+<!-- message.textContent = "Login successful!"; -->
+</body>
+
+</html>
